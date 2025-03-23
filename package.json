@@ -7,7 +7,8 @@
     "build:git": "set NODE_ENV=development && rspack build",
     "build:start": "cd dist && rspack serve",
     "start:dev": "set NODE_ENV=development && rspack serve",
-    "start:git": "set NODE_ENV=githubPage && rspack serve"
+    "start:git": "set NODE_ENV=githubPage && rspack serve",
+    "deploy:git": "set NODE_ENV=githubPage & rspack build && echo > dist/.nojekyll && gh-pages -d dist"
   },
   "devDependencies": {
     "@rspack/cli": "~1.2.0",
@@ -18,6 +19,7 @@
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.1.0",
     "css-loader": "^7.1.2",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.2.1",
     "postcss-loader": "^8.0.0",
     "react-refresh": "^0.14.0",

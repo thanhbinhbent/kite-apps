@@ -37,18 +37,18 @@ const App = () => {
       <main className="p-10">
         <Routes>
           <Route path="" element={<Application />} />
-          {Array.isArray(microApps) && microApps.length > 0 ? (
-            microApps.map((app) =>
-              app.component ? (
-                <Route key={app.id} path={app.id} element={<app.component />} />
-              ) : (
-                <p key={app.id} className="text-red-500">
-                  App {app.id} không có component!
-                </p>
-              )
+          {microApps.map((app) =>
+            app.component ? (
+              <Route
+                key={app.id}
+                path={app.id}
+                element={React.createElement(app.component)}
+              />
+            ) : (
+              <p key={app.id} className="text-red-500">
+                Chưa có app nào được cài đặt {app.id}!
+              </p>
             )
-          ) : (
-            <p className="text-gray-500">Không có ứng dụng nào được tải.</p>
           )}
         </Routes>
       </main>

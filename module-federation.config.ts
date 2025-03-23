@@ -16,7 +16,11 @@ export const mesm = {
 export type Environment = keyof typeof mesm;
 
 export const getEnvironmentConfig = () => {
-  const env = (process.env.NODE_ENV || "development").trim() as Environment;
+  const env = (
+    window.location.hostname.includes("github.io")
+      ? "githubPage"
+      : process.env.NODE_ENV || "development"
+  ).trim() as Environment;
   console.log("Environments:", env);
   console.log("Base URL", mesm[env]);
   if (!mesm[env]) {

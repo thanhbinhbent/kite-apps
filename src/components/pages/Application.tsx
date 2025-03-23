@@ -3,7 +3,6 @@ import { getMicroAppMetaData } from "../../../module-app.config";
 import { Link } from "react-router";
 
 type MicroAppMetaData = Awaited<ReturnType<typeof getMicroAppMetaData>>[0];
-
 type CategorizedApps = Record<string, MicroAppMetaData[]>;
 
 function Application() {
@@ -15,7 +14,7 @@ function Application() {
     async function fetchApps() {
       try {
         const apps = await getMicroAppMetaData();
-        console.log("Fetched micro apps:", apps); // Kiểm tra dữ liệu
+        console.log("Fetched micro apps:", apps);
 
         if (!Array.isArray(apps)) {
           throw new Error("Dữ liệu nhận được không phải là mảng");
@@ -23,13 +22,13 @@ function Application() {
 
         const categorized: Record<string, MicroAppMetaData[]> = {};
         apps.forEach((app) => {
-          if (!categorizedApps[app.category]) {
-            categorizedApps[app.category] = [];
+          if (!categorized[app.category]) {
+            categorized[app.category] = [];
           }
-          categorizedApps[app.category].push(app);
+          categorized[app.category].push(app);
         });
 
-        setCategorizedApps(categorized);
+        setCategorizedApps(categorized); // ✅ Cập nhật state đúng cách
       } catch (err) {
         setError("Không thể tải danh sách ứng dụng.");
         console.error(err);
