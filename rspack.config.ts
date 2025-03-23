@@ -29,7 +29,7 @@ export default defineConfig({
     // You need to set a unique value that is not equal to other applications
     uniqueName: "kite_app",
     // publicPath must be configured if using manifest
-    publicPath: isDev ? "http://localhost:3000/" : "/kite-apps/",
+    // publicPath: isDev ? "http://localhost:3000/" : "/kite-apps/",
   },
 
   experiments: {

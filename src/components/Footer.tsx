@@ -1,29 +1,49 @@
 import React from "react";
+import { Layout, Menu } from "antd";
+import { Link } from "react-router";
 
-const Footer: React.FC = () => {
+const { Footer } = Layout;
+const currentYear = new Date().getFullYear();
+const footerItems = [
+  {
+    key: "contact",
+    label: <Link to="/contact">Liên hệ</Link>,
+  },
+  {
+    key: "docs",
+    label: <Link to="/docs">Docs</Link>,
+  },
+];
+
+const AppFooter: React.FC = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        {/* Copyright */}
-        <p className="text-gray-700 text-sm">
-          © 2025 KiteApps. All rights reserved.
-        </p>
-
-        {/* Navigation */}
-        <nav className="hidden md:flex space-x-6">
-          <a href="#" className="text-gray-700 hover:text-black transition">
-            Privacy
-          </a>
-          <a href="#" className="text-gray-700 hover:text-black transition">
-            Terms
-          </a>
-          <a href="#" className="text-gray-700 hover:text-black transition">
-            Support
-          </a>
-        </nav>
+    <Footer
+      className="px-20"
+      style={{
+        background: "#fff",
+        borderTop: "1px solid rgba(0,0,0,0.08)",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: "64px",
+        }}
+      >
+        <div style={{ color: "rgba(0, 0, 0, 0.65)" }}>
+          © {currentYear} KiteApps. All rights reserved.
+        </div>
+        <Menu
+          mode="horizontal"
+          theme="light"
+          items={footerItems}
+          style={{ borderBottom: "none" }}
+        />
       </div>
-    </footer>
+    </Footer>
   );
 };
 
-export default Footer;
+export default AppFooter;

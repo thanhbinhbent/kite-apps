@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@module-federation/enhanced": "^0.8.9",
+    "antd": "^5.24.4",
     "dotenv": "^16.4.7",
     "kite-app": "file:",
     "react": "^19.0.0",
