@@ -18,10 +18,6 @@ const App = () => {
       console.log("Fetched micro apps:", data);
 
       if (!data || typeof data !== "object") {
-        console.error(
-          "getMicroAppMetaData() trả về dữ liệu không hợp lệ:",
-          data
-        );
         return;
       }
 

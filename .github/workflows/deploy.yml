@@ -2,31 +2,41 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"] # Chạy khi có push lên main
+  workflow_dispatch: # Cho phép chạy thủ công từ GitHub Actions
+
+permissions:
+  contents: write # Cần quyền ghi để push lên gh-pages
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install dependencies
         run: npm install
 
+      - name: Set environment to GitHub Pages
+        run: echo "NODE_ENV=githubPage" >> $GITHUB_ENV
+
       - name: Build project
-        # Nếu bạn đang dùng lệnh của Windows thì cần chuyển thành cú pháp Linux
-        run: NODE_ENV=githubPage rspack build && touch dist/.nojekyll
+        run: npm run build # Nếu dùng Rspack, thay bằng `rspack build`
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan gh-pages
+          git rm -rf .
+          cp -r dist/* .
+          touch .nojekyll  # Ngăn GitHub Pages xử lý file dưới dạng Jekyll
+          git add .
+          git commit -m "Deploy new version to GitHub Pages"
+          git push --force origin gh-pages
