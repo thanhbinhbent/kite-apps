@@ -16,12 +16,12 @@ export const mesm = {
 export type Environment = keyof typeof mesm;
 
 export const getEnvironmentConfig = () => {
-  const env = (process.env.NODE_ENV || "development").trim() as Environment;
+  const env = (process.env.MF_ENV || "development").trim() as Environment;
   console.log("Environments:", env);
   console.log("Base URL", mesm[env]);
   if (!mesm[env]) {
     console.warn(
-      `Unknown NODE_ENV: ${process.env.NODE_ENV}, defaulting to "development"`
+      `Unknown MF_ENV: ${process.env.MF_ENV}, defaulting to "development"`
     );
     return mesm.development;
   }

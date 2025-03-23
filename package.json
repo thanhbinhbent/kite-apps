@@ -2,13 +2,13 @@
   "name": "kite-app",
   "version": "0.0.1",
   "scripts": {
-    "build": "set NODE_ENV=githubPage && rspack build",
-    "build:dev": "set NODE_ENV=development && rspack build",
-    "build:git": "set NODE_ENV=development && rspack build",
+    "build": "cross-env MF_ENV=githubPage rspack build",
+    "build:dev": "cross-env MF_ENV=development rspack build",
+    "build:git": "cross-env MF_ENV=githubPage rspack build",
     "build:start": "cd dist && rspack serve",
-    "start:dev": "set NODE_ENV=development && rspack serve",
-    "start:git": "set NODE_ENV=githubPage && rspack serve",
-    "deploy:git": "set NODE_ENV=githubPage && rspack build && echo. > dist/.nojekyll && gh-pages -d dist",
+    "start:dev": "cross-env MF_ENV=development rspack serve",
+    "start:git": "cross-env MF_ENV=githubPage rspack serve",
+    "deploy:git": "cross-env MF_ENV=githubPage rspack build && echo. > dist/.nojekyll && gh-pages -d dist",
     "deploy:gh": "gh-pages -d dist"
   },
   "devDependencies": {
@@ -19,6 +19,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.1.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
     "gh-pages": "^6.3.0",
     "postcss": "^8.2.1",

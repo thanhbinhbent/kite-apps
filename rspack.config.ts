@@ -6,7 +6,7 @@ import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
 
 import { mfConfig } from "./module-federation.config";
 
-const isDev = process.env.NODE_ENV === "development";
+const isDev = process.env.MF_ENV === "development";
 
 // Target browsers, see: https://github.com/browserslist/browserslist
 const targets = ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"];
@@ -19,7 +19,6 @@ export default defineConfig({
   resolve: {
     extensions: ["...", ".ts", ".tsx", ".jsx"],
   },
-
   devServer: {
     port: 3000,
     historyApiFallback: true,
@@ -76,6 +75,9 @@ export default defineConfig({
   plugins: [
     new rspack.HtmlRspackPlugin({
       template: "./index.html",
+    }),
+    new rspack.DefinePlugin({
+      "process.env.MF_ENV": JSON.stringify(process.env.MF_ENV),
     }),
     new ModuleFederationPlugin(mfConfig),
     isDev ? new RefreshPlugin() : null,

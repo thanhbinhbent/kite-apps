@@ -24,10 +24,10 @@ jobs:
         run: npm install
 
       - name: Set environment to GitHub Pages
-        run: echo "NODE_ENV=githubPage" >> $GITHUB_ENV
+        run: echo "MF_ENV=githubPage" >> $GITHUB_ENV
 
       - name: Build project
-        run: NODE_ENV=githubPage npm run build
+        run: MF_ENV=githubPage npm run build
 
       - name: Deploy using gh-pages
         run: |
