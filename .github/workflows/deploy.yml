@@ -3,11 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Hoặc nhánh bạn muốn deploy từ
+      - main
 
 jobs:
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -21,11 +21,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Set Git author info
-        run: |
-          git config --global user.email "thanhbinh.bent@gmail.com"
-          git config --global user.name "Binh Tran"
-      - name: Setup Git credentials
-        run: git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
-      - name: Build & Deploy
-        run: npm run deploy:git
+      - name: Build project
+        # Nếu bạn đang dùng lệnh của Windows thì cần chuyển thành cú pháp Linux
+        run: NODE_ENV=githubPage rspack build && touch dist/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
