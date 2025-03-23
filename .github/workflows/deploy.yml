@@ -25,6 +25,7 @@ jobs:
         run: |
           git config --global user.email "thanhbinh.bent@gmail.com"
           git config --global user.name "Binh Tran"
-
+      - name: Setup Git credentials
+        run: git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
       - name: Build & Deploy
         run: npm run deploy:git
