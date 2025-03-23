@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Thay đổi nếu bạn deploy từ nhánh khác
+      - main # Hoặc nhánh bạn muốn deploy từ
 
 jobs:
   deploy:
@@ -20,6 +20,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Set Git author info
+        run: |
+          git config --global user.email "thanhbinh.bent@gmail.com"
+          git config --global user.name "Binh Tran"
 
       - name: Build & Deploy
         run: npm run deploy:git
